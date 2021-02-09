@@ -1,10 +1,17 @@
+var player1_name = localStorage.getItem("player1name");
+var player2_name = localStorage.getItem("player2name");
+var question_turn = "player1";
+var answer_turn = "player2";
+var get_answer;
+var player1_score=0;
+var player2_score=0;
+
+
 function display(){
-    var player1_name = localStorage.getItem("player1name");
     console.log(player1_name);
-    var player2_name = localStorage.getItem("player2name");
     console.log(player2_name);
-    document.getElementById("player1score").innerHTML = player1_name + ":"
-    document.getElementById("player2score").innerHTML = player2_name + ":"
+    document.getElementById("player1score").innerHTML = player1_name + ": 0" 
+    document.getElementById("player2score").innerHTML = player2_name + ": 0"
 }
 function send(){
     var number1 = document.getElementById("number_1").value;
@@ -19,46 +26,44 @@ function send(){
     <br>
     <input class="form-control" id="user_answer" placeHolder="Enter The Answer Here">
     <br>
-    <button class="btn btn-info id="check_button" onclick="check()">Check Answer Here!</button>
+    <button class="btn btn-info id="check_button" style="display:block;" onclick="check()">Check Answer Here!</button>
     `;
     document.getElementById("answer_box").innerHTML = answer_box;
-    var check_button = document.getElementById("check_button");
-    check_button.style.display = "block";
+    
 }
-var question_turn = "player1";
-var answer_turn = "player2";
-var get_answer = document.getElementById("user_answer").value;
-var update_player1_score;
-var player1_score;
-var update_player2_score;
-var player2_score;
+
 function check(){
     get_answer = document.getElementById("user_answer").value;
     answer = localStorage.getItem("answer");
     console.log(answer);
     if (get_answer == answer){
         if(answer_turn == "player1"){
-            update_player1_score = player1_score + 1;
-            document.getElementById("player1score").innerHTML = player1_name + ": " + update_player1_score;
+            player1_score++;
+            document.getElementById("player1score").innerHTML = player1_name + ": " +player1_score;
         }
         else{
-            update_player2_score = player2_score + 1;
-            document.getElementById("player2score").innerHTML = player2_name + ": " + update_player2_score;
+            player2_score++;
+            document.getElementById("player2score").innerHTML = player2_name + ": " +player2_score;
         }
-    if(question_turn == "player1"){
+        if(question_turn == "player1"){
         question_turn = "player2";
         document.getElementById("question_player").innerHTML = "Question Turn" + question_turn;
-    }
-    else{
+         }
+        else{
         question_turn = "player2";
         document.getElementById("question_player").innerHTML = "Question Turn" + question_turn;
+        }
     }
-}
-else{
-    if(answer_turn == "player1"){
-        update_player1_score = player1_score - 1;
-        document.getElementById("player1score").innerHTML = player1_name + ": " + update_player1_score;
+    else
+    {
+       if(answer_turn == "player1")
+       {
+        player1_score--;
+        document.getElementById("player1score").innerHTML = player1_name + ": " +player1_score;
+        }
     else{
-        update_player2_score = player2_score - 1;
-        document.getElementById("player2score").innerHTML = player2_name + ": " + update_player2_score;
-}}}}
+        player2_score--;
+        document.getElementById("player2score").innerHTML = player2_name + ": " + player2_score;
+    }
+    }
+    }   
